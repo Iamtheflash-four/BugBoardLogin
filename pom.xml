@@ -13,7 +13,17 @@
         <maven.compiler.target>17</maven.compiler.target>
         <jersey.version>3.1.5</jersey.version>
     </properties>
-
+<plugin>
+  <artifactId>maven-jar-plugin</artifactId>
+  <version>3.3.0</version>
+  <configuration>
+    <archive>
+      <manifest>
+        <mainClass>com.tuo.pacchetto.MainClass</mainClass>
+      </manifest>
+    </archive>
+  </configuration>
+</plugin>
     <dependencies>
         <!-- API Jakarta REST -->
         <dependency>
@@ -58,3 +68,4 @@
         </plugins>
     </build>
 </project>
+
