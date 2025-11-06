@@ -1,0 +1,50 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>it.unina.bugboard26</groupId>
+  <artifactId>BugBoard26_Login</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>BugBoard26 Login</name>
+  
+  <dependencies> <!-- API Jakarta RESTful Web Services --> 
+    <!-- API Jakarta REST -->
+    <dependency>
+        <groupId>jakarta.ws.rs</groupId>
+        <artifactId>jakarta.ws.rs-api</artifactId>
+        <version>3.1.0</version>
+    </dependency>
+
+    <!-- Jersey + Grizzly -->
+    <dependency>
+        <groupId>org.glassfish.jersey.containers</groupId>
+        <artifactId>jersey-container-grizzly2-http</artifactId>
+        <version>3.1.5</version>
+    </dependency>
+
+    <!-- Supporto JSON -->
+    <dependency>
+        <groupId>org.glassfish.jersey.media</groupId>
+        <artifactId>jersey-media-json-binding</artifactId>
+        <version>3.1.5</version>
+    </dependency>
+
+    <!-- HK2 per injection -->
+    <dependency>
+        <groupId>org.glassfish.jersey.inject</groupId>
+        <artifactId>jersey-hk2</artifactId>
+        <version>3.1.5</version>
+    </dependency>
+	
+	<!-- HK2 per injection (fondamentale!) -->
+    <dependency>
+        <groupId>org.glassfish.jersey.inject</groupId>
+        <artifactId>jersey-hk2</artifactId>
+        <version>3.1.5</version>
+    </dependency>
+</dependencies>
+
+<snapshotRepository>
+    <id>ossrh</id>
+    <name>Sonatype Nexus Snapshots</name>
+    <url>https://jakarta.oss.sonatype.org/content/repositories/snapshots/</url>
+</snapshotRepository>
+</project>
