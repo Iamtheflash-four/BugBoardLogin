@@ -9,7 +9,8 @@ FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
 
 # Copia esplicita del jar "shaded" prodotto dal build
-COPY --from=build /workspace/target/*-shaded.jar app.jar
+COPY --from=build /workspace/target/BugBoard26-Server-1.0-SNAPSHOT.jar app.jar
+
 
 EXPOSE 8080
 
