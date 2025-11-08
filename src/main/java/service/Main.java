@@ -14,7 +14,8 @@ public class Main {
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(
             URI.create("http://0.0.0.0:" + port), rc);
 
-        System.out.println("Server avviato su http://localhost:" + port + "/api/");
+        System.out.println("Server avviato su http://localhost:" + port);
     }
 }
+
  
