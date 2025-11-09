@@ -6,8 +6,9 @@ RUN mvn clean package
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=build /app/target/*-shaded.jar app.jar
+COPY --from=build /app/target/*.jar app.jar
 CMD ["java", "-jar", "app.jar"]
+
 
 
 
