@@ -15,54 +15,27 @@
     </properties>
 
     <dependencies>
-         <jersey.version>3.1.5</jersey.version>
-       <dependency>
-    <groupId>org.glassfish.jersey.containers</groupId>
-    <artifactId>jersey-container-grizzly2-http</artifactId>
-    <version>${jersey.version}</version>
-</dependency>
- 
-<dependency>
-    <groupId>org.glassfish.jersey.containers</groupId>
-    <artifactId>jersey-container-grizzly2-servlet</artifactId>
-    <version>${jersey.version}</version>
-</dependency>
- 
-<dependency>
-    <groupId>org.glassfish.jersey.containers</groupId>
-    <artifactId>jersey-container-jdk-http</artifactId>
-    <version>${jersey.version}</version>
-</dependency>
- 
-<dependency>
-    <groupId>org.glassfish.jersey.containers</groupId>
-    <artifactId>jersey-container-simple-http</artifactId>
-    <version>${jersey.version}</version>
-</dependency>
- 
-<dependency>
-    <groupId>org.glassfish.jersey.containers</groupId>
-    <artifactId>jersey-container-jetty-http</artifactId>
-    <version>${jersey.version}</version>
-</dependency>
-<dependency>
-  <groupId>jakarta.ws.rs</groupId>
-  <artifactId>jakarta.ws.rs-api</artifactId>
-  <version>3.1.0</version>
-  <scope>provided</scope>
-</dependency>
-<dependency>
-    <groupId>org.glassfish.jersey.containers</groupId>
-    <artifactId>jersey-container-jetty-servlet</artifactId>
-    <version>${jersey.version}</version>
-</dependency>
-<dependency>
-  <groupId>jakarta.ws.rs</groupId>
-  <artifactId>jakarta.ws.rs-api</artifactId>
-  <version>3.1.0</version>
-  <scope>provided</scope>
-</dependency>
-             
+        <!-- Jersey con Grizzly -->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-grizzly2-http</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <!-- Jersey core -->
+        <dependency>
+            <groupId>org.glassfish.jersey.core</groupId>
+            <artifactId>jersey-server</artifactId>
+            <version>${jersey.version}</version>
+        </dependency>
+
+        <!-- API Jakarta JAX-RS -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>3.1.0</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -85,12 +58,8 @@
                             </transformers>
                         </configuration>
                     </execution>
-                </executions> 
+                </executions>
             </plugin>
         </plugins>
     </build>
 </project>
-
-
-
-
