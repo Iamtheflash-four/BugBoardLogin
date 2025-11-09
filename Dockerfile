@@ -6,6 +6,7 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre-alpine
 WORKDIR /app
-COPY --from=build /app/target/my-application.jar .
+COPY --from=build /app/target/login-servie.jar .
 CMD ["java", "-jar", "login-servie.jar"]
+
 
