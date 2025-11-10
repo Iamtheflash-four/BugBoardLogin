@@ -56,13 +56,14 @@
     <dependency>
         <groupId>javax.xml.bind</groupId>
         <artifactId>jaxb-api</artifactId>
-        <version>${jersey.version}</version>
+        <version>4.0.0</version>
     </dependency>
     <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-runtime</artifactId>
-        <version>${jersey.version}</version>
+             <groupId>org.glassfish.jaxb</groupId>
+             <artifactId>jaxb-runtime</artifactId>
+             <version>4.0.5</version>
     </dependency>
+
 <dependency>
     <groupId>jakarta.xml.bind</groupId>
     <artifactId>jakarta.xml.bind-api</artifactId>
@@ -100,6 +101,7 @@
         </plugins>
     </build>
 </project>
+
 
 
 
