@@ -65,9 +65,9 @@
     </dependency>
 
 <dependency>
-    <groupId>jakarta.xml.bind</groupId>
-    <artifactId>jakarta.xml.bind-api</artifactId>
-    <version>${jersey.version}</version>
+         <groupId>jakarta.xml.bind</groupId>
+         <artifactId>jakarta.xml.bind-api</artifactId>
+         <version>4.0.2</version>
 </dependency>
 
          
@@ -101,6 +101,7 @@
         </plugins>
     </build>
 </project>
+
 
 
 
