@@ -16,18 +16,15 @@ public class LoginRequest
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)   // accetta JSON
     @Produces(MediaType.TEXT_PLAIN)   		// risponde in JSON
-	public String login(String body) {
-    System.out.println("Ricevuto: " + body);
-    return "Riuscito";
-}
- //    public String login(LoginDTO dto) 
-	// {
- //        if ("user@mail.com".equals(dto.getEmail()) && "1234".equals(dto.getPassword())) 
- //            return "Riuscito";
- //        else 
- //            return "Fallito"; 
-	// }
+    public String login(LoginDTO dto) 
+	{
+        if ("user@mail.com".equals(dto.getEmail()) && "1234".equals(dto.getPassword())) 
+            return "Riuscito";
+        else 
+            return "Fallito"; 
+	}
 }
 	
+
 
 
