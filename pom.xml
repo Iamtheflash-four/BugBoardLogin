@@ -47,10 +47,11 @@
            <version>${jersey.version}</version>
          </dependency>
 
+         <!-- https://mvnrepository.com/artifact/jakarta.activation/jakarta.activation-api -->
          <dependency>
              <groupId>jakarta.activation</groupId>
              <artifactId>jakarta.activation-api</artifactId>
-             <version>${jersey.version}</version>
+             <version>2.2.0-M1</version>
          </dependency>
         
     <dependency>
@@ -101,6 +102,7 @@
         </plugins>
     </build>
 </project>
+
 
 
 
