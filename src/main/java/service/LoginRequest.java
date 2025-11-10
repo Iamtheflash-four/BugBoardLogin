@@ -15,13 +15,13 @@ public class LoginRequest
 	@POST
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)   // accetta JSON
-    @Produces(MediaType.TEXT_PLAIN)   		// risponde in JSON
-    public String login(LoginDTO dto) {
-        if ("user@mail.com".equals(dto.email) && "1234".equals(dto.password)) {
+    @Produces(MediaType.APPLICATION_JSON)   		// risponde in JSON
+    public String login(LoginDTO dto) 
+	{
+        if ("user@mail.com".equals(dto.getEmail()) && "1234".equals(dto.getPassword())) 
             return "Riuscito";
-        } else {
-            return "Fallito";
-        }
-    }
+        else 
+            return "Fallito"; 
+	}
 }
 	

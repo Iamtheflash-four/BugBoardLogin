@@ -12,10 +12,9 @@ public class Main {
 
         ResourceConfig rc = new ResourceConfig().packages("service");
         HttpServer server = GrizzlyHttpServerFactory.createHttpServer(
-            URI.create("http://0.0.0.0:" + port), rc);
+            URI.create("http://localhost:" + port), rc);
 
         System.out.println("Server avviato su http://localhost:" + port);
     }
 }
-
  
