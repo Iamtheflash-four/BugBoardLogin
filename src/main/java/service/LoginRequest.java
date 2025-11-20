@@ -1,6 +1,10 @@
 package service;
 
+import java.sql.SQLException;
+
+import dao.UtentePostgresDAO;
 import dto.LoginDTO;
+import dto.LoginResponse;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -14,17 +18,27 @@ public class LoginRequest
 {
 	@POST
     @Path("/login")
-    @Consumes(MediaType.APPLICATION_JSON)   // accetta JSON
-    @Produces(MediaType.APPLICATION_JSON)   		// risponde in testo
-    public Utente login(LoginDTO dto) 
+    @Consumes(MediaType.APPLICATION_JSON)   
+    @Produces(MediaType.APPLICATION_JSON)   		
+    public Response login(LoginDTO dto) 
 	{
-		System.out.println("Chiave: " + System.getenv("JWT_SECRET"));
-        if ("user@mail.com".equals(dto.getEmail()) && "1234".equals(dto.getPassword())) 
-            return new Utente("Sasy", "Correra", dto.getEmail(), dto.getPassword(),
-            		new TokenGenerator(System.getenv("JWT_SECRET")).generateToken(dto.getEmail())
-            		);
-        else 
-            return null; 
+		try {
+			Utente utente = new UtentePostgresDAO().getUserByCredentials(dto.getEmail(), dto.getPassword());
+			System.out.println(utente);
+			return Response.status(Response.Status.OK)
+                    .entity(new LoginResponse(true, utente.toString(), utente ))
+                    .build();
+		} 
+		catch (SQLException e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(new LoginResponse(false, e.getMessage(), null)).build();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return Response.status(Response.Status.UNAUTHORIZED)
+                    .entity(new LoginResponse(false, e.getMessage(), null)).build();
+		}
 	}
 }
 	
