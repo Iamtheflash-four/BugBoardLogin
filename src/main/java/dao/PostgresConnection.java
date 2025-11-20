@@ -8,9 +8,8 @@ public class PostgresConnection
 {
 	public static Connection connect() throws SQLException
 	{
-		String url = "jdbc:postgresql://ep-cool-band-ab59fecz-pooler.eu-west-2.aws.neon.tech/neondb?BugBoar26=require&channelBinding=require";
-        String user = System.getenv("DB_USERNAME");
-        String password = System.getenv("DB_PASSWORD"); 
+		String url = System.getenv("DATABASE");
+
         try {
 			Class.forName("org.postgresql.Driver");
 		} catch (ClassNotFoundException e) {
