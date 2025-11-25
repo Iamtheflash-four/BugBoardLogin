@@ -1,15 +1,17 @@
-package entity;
+package entity ;
 
 public class Utente 
 {
+	private int idUtente;
 	private String nome;
 	private String cognome;
 	private String email;
 	private String password;
 	private String token;
 	
-	public Utente(String nome, String cognome, String email, String password, String token) {
+	public Utente(int idUtente, String nome, String cognome, String email, String password, String token) {
 		super();
+		this.idUtente = idUtente;
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
@@ -68,9 +70,18 @@ public class Utente
 				"}";
 	}
 
+	public int getIdUtente() {
+		return idUtente;
+	}
+
+	public void setIdUtente(int idUtente) {
+		this.idUtente = idUtente;
+	}
+
 	@Override
 	public String toString() {
 		return "Utente [nome=" + nome + ", cognome=" + cognome + ", email=" + email + ", password=" + password
 				+ ", token=" + token + "]";
 	}
 }
+
