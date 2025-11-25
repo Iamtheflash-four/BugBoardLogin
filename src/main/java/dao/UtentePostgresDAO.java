@@ -29,7 +29,7 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 		}	
 		
 		Utente utente = new Utente(
-				rs.getInt("idUtente"),
+				rs.getInt("id_Utente"),
 				rs.getString("nome"),
 				rs.getString("cognome"),
 				email, password,
@@ -111,4 +111,5 @@ public void changePassword(String email, String oldPassword, String newPassword)
 		rs.close();
 	}
 }
+
 
