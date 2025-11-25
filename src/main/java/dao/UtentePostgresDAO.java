@@ -65,9 +65,50 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 		}
 	}
 
+	@Override
+public void changePassword(String email, String oldPassword, String newPassword) throws Exception
+{
+    Connection connection = connect();
+    
+    // Verifica che le credenziali vecchie siano corrette
+    String verifyQuery = "SELECT * FROM \"Utente\" WHERE \"email\"=? AND \"password\"=?";
+    PreparedStatement verifySt = connection.prepareStatement(verifyQuery);
+    verifySt.setString(1, email);
+    verifySt.setString(2, oldPassword);
+    
+    ResultSet rs = verifySt.executeQuery();
+    if(!rs.next())
+    {
+        closeConnection(connection, verifySt, rs);
+        throw new Exception("Email o password attuale non corretti");
+    }
+    
+    rs.close();
+    verifySt.close();
+    
+    // Aggiorna la password
+    String updateQuery = "UPDATE \"Utente\" SET \"password\"=? WHERE \"email\"=?";
+    PreparedStatement updateSt = connection.prepareStatement(updateQuery);
+    updateSt.setString(1, newPassword);
+    updateSt.setString(2, email);
+    
+    int rowsAffected = updateSt.executeUpdate();
+    
+    if(rowsAffected == 0)
+    {
+        updateSt.close();
+        connection.close();
+        throw new Exception("Errore durante l'aggiornamento della password");
+    }
+    
+    updateSt.close();
+    connection.close();
+}
+
 	private void closeConnection(Connection connection, PreparedStatement st, ResultSet rs) throws SQLException {
 		connection.close();
 		st.close();
 		rs.close();
 	}
 }
+
