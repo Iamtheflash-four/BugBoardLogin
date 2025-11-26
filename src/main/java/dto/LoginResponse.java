@@ -16,7 +16,7 @@ public class LoginResponse
 	}
 
 	public LoginResponse() {}
-	
+
 	public boolean isSuccess() {
 		return success;
 	}
@@ -41,3 +41,4 @@ public class LoginResponse
 		this.utente = utente;
 	}
 }
+

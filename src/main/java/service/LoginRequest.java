@@ -23,19 +23,18 @@ public class LoginRequest
     public Response login(LoginDTO dto) 
 	{
 		try {
-			Utente utente = new UtentePostgresDAO().getUserByCredentials(dto.getEmail(), dto.getPassword());
-//			System.out.println(utente);
+			Utente utente = new UtentePostgresDAO().getUserByCredentials(
+				dto.getEmail(), HashCode256.getHashCode256(dto.getPassword()) 
+				);
 			return Response.status(Response.Status.OK)
-                    .entity(new LoginResponse(true, utente.toString(), utente ))
+                    .entity(new LoginResponse(true, utente.toString(), utente))
                     .build();
 		} 
 		catch (SQLException e) {
-			//e.printStackTrace();
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 					.entity(new LoginResponse(false, e.getMessage(), null)).build();
 		}
 		catch (Exception e) {
-			//e.printStackTrace();
 			return Response.status(Response.Status.UNAUTHORIZED)
                     .entity(new LoginResponse(false, e.getMessage(), null)).build();
 		}
