@@ -16,7 +16,7 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 	public Utente getUserByCredentials(String email, String password) throws Exception
 	{
 		Connection connection = connect();
-		String query = "Select * from \"Utente\" where \"email\"=? AND \"password\"=?";
+		String query = "Select * from \"Utente\" where lower(\"email\")=lower(?) AND \"password\"=?";
 		PreparedStatement st = connection.prepareStatement(query);
 		st.setString(1, email);
 		st.setString(2, password);
@@ -71,7 +71,7 @@ public void changePassword(String email, String oldPassword, String newPassword)
     Connection connection = connect();
     
     // Verifica che le credenziali vecchie siano corrette
-    String verifyQuery = "SELECT * FROM \"Utente\" WHERE \"email\"=? AND \"password\"=?";
+    String verifyQuery = "SELECT * FROM \"Utente\" WHERE lower(\"email\")=lower(?) AND \"password\"=?";
     PreparedStatement verifySt = connection.prepareStatement(verifyQuery);
     verifySt.setString(1, email);
     verifySt.setString(2, oldPassword);
@@ -111,5 +111,4 @@ public void changePassword(String email, String oldPassword, String newPassword)
 		rs.close();
 	}
 }
-
 
