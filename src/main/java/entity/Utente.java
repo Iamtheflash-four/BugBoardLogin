@@ -1,4 +1,4 @@
-package entity ;
+package entity;
 
 public class Utente 
 {
@@ -7,9 +7,10 @@ public class Utente
 	private String cognome;
 	private String email;
 	private String password;
+	private boolean amministratore;
 	private String token;
 	
-	public Utente(int idUtente, String nome, String cognome, String email, String password, String token) {
+	public Utente(int idUtente, String nome, String cognome, String email, String password, boolean amministratore, String token) {
 		super();
 		this.idUtente = idUtente;
 		this.nome = nome;
@@ -17,6 +18,17 @@ public class Utente
 		this.email = email;
 		this.password = password;
 		this.token = token;
+		this.amministratore = amministratore;
+	}
+
+	public Utente() {}
+	
+	public boolean isAmministratore() {
+		return amministratore;
+	}
+
+	public void setAmministratore(boolean amministratore) {
+		this.amministratore = amministratore;
 	}
 
 	public String getNome() {
@@ -84,4 +96,3 @@ public class Utente
 				+ ", token=" + token + "]";
 	}
 }
-

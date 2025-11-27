@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import entity.Utente;
+import service.HashCode256;
 import service.TokenGenerator;
 
 public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
@@ -32,8 +33,9 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 				rs.getInt("id_Utente"),
 				rs.getString("nome"),
 				rs.getString("cognome"),
-				email, password,
-				new TokenGenerator(System.getenv("JWT_SECRET")).generateToken(email)
+				email, password, 
+				rs.getBoolean("admin"),
+				new TokenGenerator(System.getenv("JWT_SECRET")).generateToken(rs.getInt("id_Utente"))
 			);
 		closeConnection(connection, st, rs);
 		return utente;
@@ -66,44 +68,28 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 	}
 
 	@Override
-public void changePassword(String email, String oldPassword, String newPassword) throws Exception
-{
-    Connection connection = connect();
-    
-    // Verifica che le credenziali vecchie siano corrette
-    String verifyQuery = "SELECT * FROM \"Utente\" WHERE lower(\"email\")=lower(?) AND \"password\"=?";
-    PreparedStatement verifySt = connection.prepareStatement(verifyQuery);
-    verifySt.setString(1, email);
-    verifySt.setString(2, oldPassword);
-    
-    ResultSet rs = verifySt.executeQuery();
-    if(!rs.next())
-    {
-        closeConnection(connection, verifySt, rs);
-        throw new Exception("Email o password attuale non corretti");
-    }
-    
-    rs.close();
-    verifySt.close();
-    
-    // Aggiorna la password
-    String updateQuery = "UPDATE \"Utente\" SET \"password\"=? WHERE \"email\"=?";
-    PreparedStatement updateSt = connection.prepareStatement(updateQuery);
-    updateSt.setString(1, newPassword);
-    updateSt.setString(2, email);
-    
-    int rowsAffected = updateSt.executeUpdate();
-    
-    if(rowsAffected == 0)
-    {
-        updateSt.close();
-        connection.close();
-        throw new Exception("Errore durante l'aggiornamento della password");
-    }
-    
-    updateSt.close();
-    connection.close();
-}
+	public void changePassword(int idUtente, String oldPassword, String newPassword) throws Exception
+	{
+	    Connection connection = connect();
+	   
+	    // Aggiorna la password
+	    String updateQuery = "UPDATE \"Utente\" SET \"password\"=? WHERE \"id_Utente\"=?";
+	    PreparedStatement updateSt = connection.prepareStatement(updateQuery);
+	    updateSt.setString(1, newPassword);
+	    updateSt.setInt(2, idUtente);
+	    
+	    int rowsAffected = updateSt.executeUpdate();
+	    
+	    if(rowsAffected == 0)	//L'utente non esiste
+	    {
+	        updateSt.close();
+	        connection.close();
+	        throw new Exception("Utente non trovato");
+	    }
+	    
+	    updateSt.close();
+	    connection.close();
+	}
 
 	private void closeConnection(Connection connection, PreparedStatement st, ResultSet rs) throws SQLException {
 		connection.close();

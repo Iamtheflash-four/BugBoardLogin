@@ -23,22 +23,22 @@ public class TokenGenerator
         this.verifier = JWT.require(algorithm).build();
     }
 	
-	public String generateToken(String username) {
+	public String generateToken(int idUtente) {
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.HOUR, 24); // durata 24 ore
 
         return JWT.create()
-                .withSubject(username)
+                .withSubject(Integer.toString(idUtente))
                 .withIssuedAt(new Date())
                 .withExpiresAt(cal.getTime())
                 .sign(algorithm);
     }
 	
-	public String validateTokenAndGetUsername(String token) {
+	public int validateTokenAndGetUserID(String token) {
         try {
-            return verifier.verify(token).getSubject();	//Username se il token è valido, null altrimenti
+            return Integer.parseInt(verifier.verify(token).getSubject());	//idUtente se il token è valido, null altrimenti
         } catch (final JWTVerificationException verificationEx) {
-            return null;
+            throw new JWTVerificationException("Token non valido");
         }
     }
 }

@@ -1,6 +1,5 @@
 package service;
 
-import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,9 +24,8 @@ public class HashCode256
 	public static void main(String[] args)
 	{
 		try {
-			System.out.println(HashCode256.getHashCode256("libro"));
+			System.out.println(HashCode256.getHashCode256("1234"));
 		} catch (NoSuchAlgorithmException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
