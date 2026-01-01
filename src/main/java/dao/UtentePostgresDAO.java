@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
+import dto.UtenteInfoDTO;
 import entity.Utente;
 import service.HashCode256;
 import service.TokenGenerator;
@@ -17,7 +19,7 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 	public Utente getUserByCredentials(String email, String password) throws Exception
 	{
 		Connection connection = connect();
-		String query = "Select * from \"Utente\" where lower(\"email\")=lower(?) AND \"password\"=?";
+		String query = "SELECT * FROM \"Utente\" WHERE lower(\"email\")=lower(?) AND \"password\"=?";
 		PreparedStatement st = connection.prepareStatement(query);
 		st.setString(1, email);
 		st.setString(2, password);
@@ -35,7 +37,8 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 				rs.getString("cognome"),
 				email, password, 
 				rs.getBoolean("admin"),
-				new TokenGenerator(System.getenv("JWT_SECRET")).generateToken(rs.getInt("id_Utente"))
+				new TokenGenerator(System.getenv("JWT_SECRET")).
+					generateToken(rs.getInt("id_Utente"), rs.getBoolean("admin"))
 			);
 		closeConnection(connection, st, rs);
 		return utente;
@@ -95,6 +98,22 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 		connection.close();
 		st.close();
 		rs.close();
+	}
+
+	@Override
+	public ArrayList<UtenteInfoDTO> getElencoUteniByIdProgetto(Long idProgetto) throws SQLException {
+		Connection connection = connect();
+		String query = "Select  u.\"idUtente\", u.\"email\", u.nome, u.cognome "
+				+ "FROM \"TeamProgetto\"AS p "
+				+ "NATURAL JOIN \"PersonaleTeamwork\" AS t "
+				+ "NATURAL JOIN \"Utente AS u "
+				+ "WHERE p.\"id_progetto\" = ?";
+		PreparedStatement st = connection.prepareStatement(query);
+		st.setLong(1, idProgetto);
+		
+		ResultSet rs = st.executeQuery();
+			
+		return null;
 	}
 }
 

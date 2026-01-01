@@ -24,7 +24,7 @@ public class HashCode256
 	public static void main(String[] args)
 	{
 		try {
-			System.out.println(HashCode256.getHashCode256("1234"));
+			System.out.println(HashCode256.getHashCode256("3"));
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
 		}

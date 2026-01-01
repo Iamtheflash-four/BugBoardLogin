@@ -66,7 +66,7 @@ public class ChangePasswordRequest
     {
     	try 
     	{
-            int idUtente = new TokenGenerator(System.getenv("JWT_SECRET")).validateTokenAndGetUserID(token);
+            int idUtente = new TokenGenerator(System.getenv("JWT_SECRET")).validateUserTokenAndGetID(token);
             return idUtente;
     	} 
     	catch (TokenExpiredException e) 
@@ -80,6 +80,10 @@ public class ChangePasswordRequest
                     .entity(new ChangePasswordResponse(false, "Token non valido"))
                     .build();
         }
+    	catch(Exception e) {
+			response =  Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+					.entity(e.getMessage()).build();
+		}
         return -1;
     }
     
