@@ -104,7 +104,7 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 	@Override
 	public ArrayList<UtenteInfoDTO> getElencoUteniByIdProgetto(Long idProgetto) throws SQLException {
 		Connection connection = connect();
-		String query = "Select  u.\"idUtente\", u.\"email\", u.nome, u.cognome \n"
+		String query = "Select  u.\"id_Utente\", u.\"email\", u.nome, u.cognome \n"
 				+ "FROM \"TeamProgetto\"AS p \n"
 				+ "NATURAL JOIN \"PersonaleTeamwork\" AS t \n"
 				+ "NATURAL JOIN \"Utente\" AS u \n"
