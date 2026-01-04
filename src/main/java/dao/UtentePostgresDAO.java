@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dto.CreaUtenteDTO;
 import dto.UtenteInfoDTO;
 import entity.Utente;
 import service.HashCode256;
@@ -112,8 +113,31 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 		st.setLong(1, idProgetto);
 		
 		ResultSet rs = st.executeQuery();
-			
-		return null;
+		ArrayList<UtenteInfoDTO> elenco = new ArrayList<UtenteInfoDTO>();
+		return creaElencoInfoUtenti(rs);
+	}
+
+	public ArrayList<UtenteInfoDTO> creaElencoInfoUtenti(ResultSet rs) throws SQLException {
+		ArrayList<UtenteInfoDTO> elenco = new ArrayList<UtenteInfoDTO>();
+		while(rs.next())
+		{
+			elenco.add(new UtenteInfoDTO(
+				rs.getLong("idUtente"),
+				rs.getString("email"),
+				rs.getString("nome"),
+				rs.getString("cognome")
+			));
+		}
+		return elenco;
+	}
+
+	public boolean createUser(CreaUtenteDTO utente) throws SQLException {
+		Connection connection = PostgresConnection.connect();
+		String query = "INSERT INTO \"Utente\" (nome, cognome, email, admin, password)";
+		PreparedStatement st = connection.prepareStatement(query);
+		
+		int rowsAffected = st.executeUpdate();
+		return rowsAffected > 0;
 	}
 }
 
