@@ -122,7 +122,7 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 		while(rs.next())
 		{
 			elenco.add(new UtenteInfoDTO(
-				rs.getLong("idUtente"),
+				rs.getLong("id_Utente"),
 				rs.getString("email"),
 				rs.getString("nome"),
 				rs.getString("cognome")
