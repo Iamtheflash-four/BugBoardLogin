@@ -104,10 +104,10 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 	@Override
 	public ArrayList<UtenteInfoDTO> getElencoUteniByIdProgetto(Long idProgetto) throws SQLException {
 		Connection connection = connect();
-		String query = "Select  u.\"idUtente\", u.\"email\", u.nome, u.cognome "
-				+ "FROM \"TeamProgetto\"AS p "
-				+ "NATURAL JOIN \"PersonaleTeamwork\" AS t "
-				+ "NATURAL JOIN \"Utente AS u "
+		String query = "Select  u.\"idUtente\", u.\"email\", u.nome, u.cognome \n"
+				+ "FROM \"TeamProgetto\"AS p \n"
+				+ "NATURAL JOIN \"PersonaleTeamwork\" AS t \n"
+				+ "NATURAL JOIN \"Utente\" AS u \n"
 				+ "WHERE p.\"id_progetto\" = ?";
 		PreparedStatement st = connection.prepareStatement(query);
 		st.setLong(1, idProgetto);
@@ -133,8 +133,14 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 
 	public boolean createUser(CreaUtenteDTO utente) throws SQLException {
 		Connection connection = PostgresConnection.connect();
-		String query = "INSERT INTO \"Utente\" (nome, cognome, email, admin, password)";
+		String query = 	 "INSERT INTO \"Utente\" (nome, cognome, email, admin, password) \n"
+						+"VALUES(?, ?, ?, ?)";
 		PreparedStatement st = connection.prepareStatement(query);
+		st.setString(1, utente.getNome());
+		st.setString(2, utente.getCognome());
+		st.setString(3, utente.getEmail());
+		st.setBoolean(4, utente.isAdmin());
+		st.setString(5, utente.getPassword());
 		
 		int rowsAffected = st.executeUpdate();
 		return rowsAffected > 0;
