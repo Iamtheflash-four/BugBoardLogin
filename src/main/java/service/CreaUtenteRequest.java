@@ -6,6 +6,7 @@ import dao.UtentePostgresDAO;
 import dto.CreaUtenteDTO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.HeaderParam;
+import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -14,6 +15,7 @@ import jakarta.ws.rs.core.Response;
 public class CreaUtenteRequest 
 {
 	@Path("createUser")
+	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response creaUtente(CreaUtenteDTO utente, @HeaderParam("Token") String token)
 	{
