@@ -10,12 +10,14 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
 
 import dao.UtentePostgresDAO;
 import dto.UtenteInfoDTO;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.HeaderParam;
 
 @Path("elenchi")
 public class ElencoUtentiService 
 {
 	@Path("utenti")
+	@GET
 	public Response creaElencoUtenti(@HeaderParam("progetto") Long idProgetto, @HeaderParam("token") String token)
 	{
 		try {
