@@ -134,7 +134,7 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 	public boolean createUser(CreaUtenteDTO utente) throws SQLException {
 		Connection connection = PostgresConnection.connect();
 		String query = 	 "INSERT INTO \"Utente\" (nome, cognome, email, admin, password) \n"
-						+"VALUES(?, ?, ?, ?)";
+						+"VALUES(?, ?, ?, ?, ?)";
 		PreparedStatement st = connection.prepareStatement(query);
 		st.setString(1, utente.getNome());
 		st.setString(2, utente.getCognome());
