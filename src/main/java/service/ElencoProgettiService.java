@@ -24,11 +24,11 @@ public class ElencoProgettiService
 	{
 		try {
 			int idUtente = new TokenGenerator(System.getenv("JWT_SECRET")).validateUserTokenAndGetID(token);
+			
 			ArrayList<Progetto> elenco = new ProgettoPostgresDAO().elencaProgettiUtente(idUtente);
-			if(elenco == null || elenco.isEmpty())
-				System.out.println("Vuoto");
+			
 			return Response.status(Response.Status.OK)
-					.entity(new ElencoProgettiResponse(null, elenco)).build();
+					.entity(elenco).build();
 		} catch (Exception e) {
 			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
 	                .entity(new ElencoProgettiResponse(e.getMessage(), null)).build();

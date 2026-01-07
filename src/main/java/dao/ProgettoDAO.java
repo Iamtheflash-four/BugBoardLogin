@@ -7,5 +7,7 @@ import entity.Progetto;
 
 public interface ProgettoDAO
 {
-	public ArrayList<Progetto> elencaProgettiUtente(int idUtente) throws SQLException;
+	public ArrayList<Progetto> elencaProgettiUtente(int idUtente) throws Exception;
+
+	public long creaProgetto(String nomeProgetto) throws Exception;
 }

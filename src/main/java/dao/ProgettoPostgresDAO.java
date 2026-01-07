@@ -1,5 +1,6 @@
 package dao;
 
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,5 +31,20 @@ public class ProgettoPostgresDAO extends PostgresConnection implements ProgettoD
 			System.out.println(rs.getString("nomeprogetto"));
 		}
 		return elenco;
+	}
+	
+	@Override
+	public long creaProgetto(String nomeProgetto) throws SQLException {
+		Connection connection = connect();
+		String query = "INSERT INTO \"Progetto\" (nomeprogetto) VALUES(?)";
+		PreparedStatement st = connection.prepareStatement( query, PreparedStatement.RETURN_GENERATED_KEYS); 
+		
+		int rows = st.executeUpdate();
+		if (rows <= 0)
+			throw new SQLException("Errore: nessun progetto creato");
+		ResultSet rs = st.getGeneratedKeys();	
+		if (rs.next()) 
+		    return rs.getLong(1); 		
+		throw new SQLException("Errore: nessun progetto creato");
 	}
 }

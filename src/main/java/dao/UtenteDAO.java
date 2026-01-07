@@ -12,5 +12,7 @@ public interface UtenteDAO
 	
     public void changePassword(int idUtente, String oldPassword, String newPassword) throws Exception;
 
-    public ArrayList<UtenteInfoDTO> getElencoUteniByIdProgetto(Long idProgetto) throws Exception; 
+    public ArrayList<UtenteInfoDTO> getElencoUteniByIdProgetto(Long idProgetto) throws Exception;
+
+	public long getUserID(String email) throws Exception; 
 }

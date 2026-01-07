@@ -145,5 +145,18 @@ public class UtentePostgresDAO extends PostgresConnection implements UtenteDAO
 		int rowsAffected = st.executeUpdate();
 		return rowsAffected > 0;
 	}
+
+	@Override
+	public long getUserID(String email) throws Exception {
+		Connection connection = connect();
+		String query = "SELECT \"id_Utente\" FROM \"Utente\" WHERE email = ?";
+		PreparedStatement st = connection.prepareStatement(query);
+		st.setString(1, email);
+		
+		ResultSet result = st.executeQuery();
+		if(result.next())
+			return result.getLong("id_Utente");
+		throw new Exception("L'email non esiste");
+	}
 }
 
