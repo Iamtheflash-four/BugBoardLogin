@@ -15,8 +15,9 @@ public class PostgresConnection
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-		Connection connection = DriverManager.getConnection("jdbc:postgresql://ep-cool-band-ab59fecz-pooler.eu-west-2.aws.neon.tech/neondb?user=neondb_owner&password=npg_v4gKmBXVcwo0&sslmode=require&channelBinding=require");
+		Connection connection = DriverManager.getConnection(url);
 		
 		return connection;
 	}
 }
+
