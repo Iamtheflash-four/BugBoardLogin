@@ -15,6 +15,8 @@ public class UtenteInfoDTO
 		this.cognome = cognome;
 	}
 
+	public UtenteInfoDTO() {}
+	
 	public long getIdUtente() {
 		return idUtente;
 	}
