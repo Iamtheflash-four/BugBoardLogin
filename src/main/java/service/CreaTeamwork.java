@@ -13,10 +13,10 @@ import dao.UtentePostgresDAO;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.HeaderParam;
 
-@Path("/teamwork")
+@Path("teamwork")
 public class CreaTeamwork 
 {
-	@Path("/creazione")
+	@Path("creazione")
 	@PUT
 	@Consumes(MediaType.TEXT_PLAIN)
 	public Response creaTeamWork(@HeaderParam("token") String token, @HeaderParam("nome") String nomeTeam,
@@ -31,7 +31,7 @@ public class CreaTeamwork
 			boolean success = new TeamWorkPostgresDAO().creaTeamWork(idResponsabile, emailResponsabile);
 			
 			if(success)
-				return Response.status(Response.Status.OK).build();
+				return Response.status(Response.Status.CREATED).build();
 			else
 				return Response.status(204).entity("Team non creato").build();
 		} 

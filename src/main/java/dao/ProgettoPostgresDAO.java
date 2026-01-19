@@ -23,12 +23,11 @@ public class ProgettoPostgresDAO extends PostgresConnection implements ProgettoD
 		ResultSet rs = st.executeQuery();
 		
 		ArrayList<Progetto> elenco = new ArrayList<Progetto>();
-		System.out.println("Progetti: ");
 
 		while (rs.next())
 		{
 			elenco.add(new Progetto(rs.getInt("id_progetto"), rs.getString("nomeprogetto")));
-			System.out.println(rs.getString("nomeprogetto"));
+//			System.out.println(rs.getString("nomeprogetto"));
 		}
 		return elenco;
 	}
@@ -38,13 +37,13 @@ public class ProgettoPostgresDAO extends PostgresConnection implements ProgettoD
 		Connection connection = connect();
 		String query = "INSERT INTO \"Progetto\" (nomeprogetto) VALUES(?)";
 		PreparedStatement st = connection.prepareStatement( query, PreparedStatement.RETURN_GENERATED_KEYS); 
-		
+		st.setString(1, nomeProgetto);
 		int rows = st.executeUpdate();
 		if (rows <= 0)
 			throw new SQLException("Errore: nessun progetto creato");
 		ResultSet rs = st.getGeneratedKeys();	
 		if (rs.next()) 
-		    return rs.getLong(1); 		
+		    return rs.getLong("id_progetto"); 		
 		throw new SQLException("Errore: nessun progetto creato");
 	}
 }

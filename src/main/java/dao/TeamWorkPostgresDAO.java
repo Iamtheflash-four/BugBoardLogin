@@ -11,7 +11,6 @@ import dto.TeamDTO;
 
 public class TeamWorkPostgresDAO implements TeamWorkDAO 
 {
-
 	@Override
 	public boolean creaTeamWork(long idResponsabile, String nome) throws SQLException {
 		Connection connection = PostgresConnection.connect();
@@ -32,6 +31,7 @@ public class TeamWorkPostgresDAO implements TeamWorkDAO
 		String query = 	  "SELECT \"id_Team\", nome "
 						+ "FROM \"Teamwork\" WHERE \"id_UtenteResponsabile\" = ?";
 		PreparedStatement st = connection.prepareStatement(query);
+		st.setLong(1, idUtente);
 		ResultSet result = st.executeQuery();
 		
 		return creaElenco(result);

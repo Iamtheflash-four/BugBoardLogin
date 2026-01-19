@@ -5,16 +5,15 @@ RUN mvn -B -DskipTests dependency:go-offline
 COPY src ./src
 RUN mvn -B -DskipTests package
 
-#RUN jar tf target/app.jar | grep --color=always json
-
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
-COPY --from=build /workspace/target/app.jar .
+
+# Copia esplicita del jar "shaded" prodotto dal build
+COPY --from=build /workspace/target/BugBoard26-Server-1.0-SNAPSHOT.jar app.jar
+
+
 EXPOSE 8080
-CMD ["java", "-jar", "app.jar"]
 
-
-
-
-
-
+# Avvia usando -cp e indicando la Main class (service.Main)
+# così non dipendiamo dal manifest del jar
+CMD ["sh", "-c", "java -Dserver.port=${PORT:-8080} -cp app.jar service.Main"]
